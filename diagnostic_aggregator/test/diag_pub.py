@@ -36,6 +36,7 @@
 
 ##\brief Publishes diagnostic messages for diagnostic aggregator unit test
 
+from __future__ import unicode_literals
 PKG = 'diagnostic_aggregator'
 
 import roslib; roslib.load_manifest(PKG)

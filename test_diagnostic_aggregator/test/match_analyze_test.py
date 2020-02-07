@@ -37,6 +37,7 @@
 ##\brief Tests that analyzer that matches item will not affect item going into Other
 
 from __future__ import with_statement
+from __future__ import unicode_literals
 
 DURATION = 10
 PKG = 'test_diagnostic_aggregator'

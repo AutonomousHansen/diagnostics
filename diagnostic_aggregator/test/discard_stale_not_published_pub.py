@@ -36,6 +36,7 @@
 
 # \brief Publishes messages for aggregator testing of discard stale flag
 
+from __future__ import unicode_literals
 from time import sleep
 
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus

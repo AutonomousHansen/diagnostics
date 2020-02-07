@@ -36,6 +36,7 @@
 @author Brice Rebsamen <brice [dot] rebsamen [gmail]>
 """
 
+from builtins import str
 import rospy
 from diagnostic_msgs.msg import DiagnosticStatus, KeyValue
 

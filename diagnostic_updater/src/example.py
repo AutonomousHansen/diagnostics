@@ -37,7 +37,9 @@
 """
 @author Brice Rebsamen <brice [dot] rebsamen [gmail]>
 """
+from __future__ import unicode_literals
 
+from builtins import object
 import roslib
 roslib.load_manifest('diagnostic_updater')
 import rospy
@@ -87,7 +89,7 @@ def dummy_diagnostic(stat):
     return stat
 
 
-class DummyClass:
+class DummyClass(object):
     def produce_diagnostics(self, stat):
         stat.summary(diagnostic_msgs.msg.DiagnosticStatus.WARN, "This is a silly updater.")
         stat.add("Stupidicity of this updater", 1000.)

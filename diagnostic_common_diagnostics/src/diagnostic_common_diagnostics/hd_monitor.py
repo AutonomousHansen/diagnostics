@@ -35,7 +35,11 @@
 
 ##\author Kevin Watts
 
+from __future__ import print_function
 from __future__ import with_statement
+from builtins import str
+from builtins import range
+from builtins import object
 import roslib
 roslib.load_manifest('diagnostic_common_diagnostics')
 
@@ -130,7 +134,7 @@ def update_status_stale(stat, last_update_time):
     stat.values.insert(0, KeyValue(key = 'Update Status', value = stale_status))
     stat.values.insert(1, KeyValue(key = 'Time Since Update', value = str(time_since_update)))
 
-class hd_monitor():
+class hd_monitor(object):
     def __init__(self, hostname, diag_hostname, home_dir = ''):
         self._mutex = threading.Lock()
 
@@ -194,10 +198,10 @@ class hd_monitor():
         for index in range(0, len(drives)):
             temp = temps[index]
 
-            if not unicode(temp).isnumeric() and drives[index] not in REMOVABLE:
+            if not str(temp).isnumeric() and drives[index] not in REMOVABLE:
                 temp_level = DiagnosticStatus.ERROR
                 temp_ok = False
-            elif not unicode(temp).isnumeric() and drives[index] in REMOVABLE:
+            elif not str(temp).isnumeric() and drives[index] in REMOVABLE:
                 temp_level = DiagnosticStatus.OK
                 temp = "Removed"
             else:
@@ -260,7 +264,7 @@ class hd_monitor():
                 for row in stdout.split('\n'):
                     if len(row.split()) < 2:
                         continue
-                    if not unicode(row.split()[1]).isnumeric() or float(row.split()[1]) < 10: # Ignore small drives
+                    if not str(row.split()[1]).isnumeric() or float(row.split()[1]) < 10: # Ignore small drives
                         continue
 
                     row_count += 1
@@ -362,7 +366,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('hd_monitor_%s' % hostname_clean)
     except rospy.exceptions.ROSInitException:
-        print 'HD monitor is unable to initialize node. Master may not be running.'
+        print('HD monitor is unable to initialize node. Master may not be running.')
         sys.exit(0)
 
     hd_monitor = hd_monitor(hostname, options.diag_hostname, home_dir)
@@ -374,7 +378,7 @@ if __name__ == '__main__':
             hd_monitor.publish_stats()
     except KeyboardInterrupt:
         pass
-    except Exception, e:
+    except Exception as e:
         traceback.print_exc()
 
     hd_monitor.cancel_timers()

@@ -37,6 +37,7 @@
 ##\brief Tests that analyzer that fails to load will produce diagnostic error
 
 from __future__ import with_statement
+from __future__ import unicode_literals
 
 DURATION = 5
 PKG = 'test_diagnostic_aggregator'

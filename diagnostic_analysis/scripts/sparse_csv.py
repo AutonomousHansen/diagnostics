@@ -38,6 +38,8 @@
 # Make any csv into sparse csv
 
 
+from __future__ import print_function
+from __future__ import unicode_literals
 PKG = 'diagnostic_analysis'
 import roslib
 roslib.load_manifest(PKG)
@@ -64,13 +66,13 @@ if __name__=='__main__':
 
     # Get CSV file
     if len(args) < 1:
-        print 'No CSV file given.'
+        print('No CSV file given.')
         sys.exit(0)
 
     csv_file = args[0]
 
     if not csv_file.endswith('.csv'):
-        print 'File %s is not a CSV file. Aborting.' % csv_file
+        print('File %s is not a CSV file. Aborting.' % csv_file)
         sys.exit(0)    
     
     if options.max:
@@ -80,4 +82,4 @@ if __name__=='__main__':
     else:
         output_file = make_sparse_length(csv_file, int(options.length))
 
-    print 'Created sparse CSV %s' % output_file
+    print('Created sparse CSV %s' % output_file)

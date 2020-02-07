@@ -4,6 +4,7 @@
 """
 @author Brice Rebsamen <brice [dot] rebsamen [gmail]>
 """
+from __future__ import unicode_literals
 
 import roslib
 roslib.load_manifest('diagnostic_updater')

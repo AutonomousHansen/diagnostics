@@ -35,6 +35,8 @@
 ##\author Kevin Watts
 ##\brief Make CSV files smaller for use in spreadsheet software
 
+from __future__ import division
+from past.utils import old_div
 PKG = 'diagnostic_analysis'
 import roslib
 roslib.load_manifest(PKG)
@@ -77,7 +79,7 @@ def make_sparse_length(csv_file, length):
 
     # Calculate skip count for file
     orig_len = len(open(csv_file, 'r').read().split('\n'))
-    skip = max(int(orig_len / length), 1)
+    skip = max(int(old_div(orig_len, length)), 1)
 
     skip_count = skip
     for row in input_reader:

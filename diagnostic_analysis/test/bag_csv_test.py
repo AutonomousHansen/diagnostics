@@ -34,6 +34,11 @@
 
 # Author: Kevin Watts
 
+from __future__ import division
+from __future__ import unicode_literals
+from builtins import str
+from builtins import range
+from past.utils import old_div
 PKG = 'diagnostic_analysis'
 
 import roslib; roslib.load_manifest(PKG)
@@ -116,7 +121,7 @@ class TestBagToCSV(unittest.TestCase):
 
     ##\brief Tests that sparse CSV made with 'skip' option has correct number of lines
     def test_sparse_skip(self):
-        self.assert_(len(open(self.skip_10).read().split('\n')) <= int(row_count / 10) + 2, "Length of sparse CSV (skipped) incorrect")
+        self.assert_(len(open(self.skip_10).read().split('\n')) <= int(old_div(row_count, 10)) + 2, "Length of sparse CSV (skipped) incorrect")
 
     ##\brief Tests that sparse CSV made with 'length' option has correct number of lines
     def test_sparse_length(self):

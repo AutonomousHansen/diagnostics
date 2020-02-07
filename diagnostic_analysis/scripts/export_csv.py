@@ -36,6 +36,8 @@
 
 ##\brief Converts diagnostics log files into CSV's for analysis
 
+from __future__ import print_function
+from __future__ import unicode_literals
 PKG = 'diagnostic_analysis'
 import roslib; roslib.load_manifest(PKG)
 import diagnostic_msgs.msg
@@ -56,22 +58,22 @@ if __name__ == '__main__':
 
     exporters = []
 
-    print 'Output directory: %s/output' % options.directory
+    print('Output directory: %s/output' % options.directory)
 
     try:
         for i, f in enumerate(args):
             filepath = 'output/%s_csv' % os.path.basename(f)[0:os.path.basename(f).find('.')]
             
             output_dir = os.path.join(options.directory,  filepath)
-            print "Processing file %s. File %d of %d." % (os.path.basename(f), i + 1, len(args))
+            print("Processing file %s. File %d of %d." % (os.path.basename(f), i + 1, len(args)))
             
             exp = LogExporter(output_dir, f)
             exp.process_log()
             exp.finish_logfile()
             exporters.append(exp)
 
-        print 'Finished processing files.'
+        print('Finished processing files.')
     except:
         import traceback
-        print "Caught exception processing log file"
+        print("Caught exception processing log file")
         traceback.print_exc()

@@ -34,6 +34,8 @@
 
 # \author Rein Appeldoorn
 
+from __future__ import division
+from past.utils import old_div
 import rospy
 from diagnostic_updater import DiagnosticTask, Updater
 from diagnostic_msgs.msg import DiagnosticStatus
@@ -49,7 +51,7 @@ class CpuTask(DiagnosticTask):
 
     def run(self, stat):
         cpu_percentages = psutil.cpu_percent(percpu=True)
-        cpu_average = sum(cpu_percentages) / len(cpu_percentages)
+        cpu_average = old_div(sum(cpu_percentages), len(cpu_percentages))
 
         stat.add("CPU Load Average", cpu_average)
 

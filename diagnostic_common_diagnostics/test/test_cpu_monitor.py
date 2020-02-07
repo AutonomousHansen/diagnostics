@@ -35,6 +35,7 @@
 # \author Rein Appeldoorn
 
 
+from __future__ import unicode_literals
 import unittest
 import rospy
 import rostest

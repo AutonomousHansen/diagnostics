@@ -36,18 +36,22 @@
 @author Brice Rebsamen <brice [dot] rebsamen [gmail]>
 """
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import range
+from builtins import object
 import rospy
 import threading
 from diagnostic_msgs.msg import DiagnosticArray
 
 try:
-    import httplib
+    import http.client
 except ImportError:
     import http.client as httplib
 
 from ._diagnostic_status_wrapper import *
 
-class DiagnosticTask:
+class DiagnosticTask(object):
     """DiagnosticTask is an abstract base class for collecting diagnostic data.
 
     Subclasses are provided for generating common diagnostic information.
@@ -142,7 +146,7 @@ class CompositeDiagnosticTask(DiagnosticTask):
 
 
 
-class DiagnosticTaskVector:
+class DiagnosticTaskVector(object):
     """Internal use only.
 
     Base class for diagnostic_updater::Updater and self_test::Dispatcher.
@@ -151,7 +155,7 @@ class DiagnosticTaskVector:
     self-tests.
     """
 
-    class DiagnosticTaskInternal:
+    class DiagnosticTaskInternal(object):
         """Class used to represent a diagnostic task internally in
         DiagnosticTaskVector.
         """
@@ -322,7 +326,7 @@ class Updater(DiagnosticTaskVector):
             try:
                 self.period = rospy.get_param("~diagnostic_period", 1)
                 self.last_time_period_checked = now
-            except (httplib.CannotSendRequest, httplib.ResponseNotReady):
+            except (http.client.CannotSendRequest, http.client.ResponseNotReady):
                 pass
 
     def publish(self, msg):

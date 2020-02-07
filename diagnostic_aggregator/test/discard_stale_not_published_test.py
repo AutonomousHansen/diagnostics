@@ -36,6 +36,7 @@
 
 # \brief Tests that expected items from GenericAnalyzer will be removed after the timeout if discard_stale is set to true
 
+from __future__ import unicode_literals
 import rospy, rostest, unittest
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus
 from time import sleep
@@ -77,14 +78,14 @@ class TestDiscardStale(unittest.TestCase):
         timeout = 10
 
         # wait for expecteds to be published
-        while (len(expecteds.keys()) != 1 and
+        while (len(list(expecteds.keys())) != 1 and
                not rospy.is_shutdown() and
                (rospy.get_time() - self._start_time < timeout)):
             sleep(1.0)
             with self._mutex:
                 expecteds = self._expecteds
 
-        self.assert_(len(expecteds.keys()) == 1, "The expected diagnostics are not of length 1."
+        self.assert_(len(list(expecteds.keys())) == 1, "The expected diagnostics are not of length 1."
                                                  "Received diagnostics: {}".format(expecteds))
         self.assert_(expecteds['nonexistent2'].level == DiagnosticStatus.WARN)
 

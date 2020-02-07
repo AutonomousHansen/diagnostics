@@ -36,6 +36,8 @@
 
 ##\brief Tests that expected items from GenericAnalyzer will appear stale
 
+from __future__ import unicode_literals
+from builtins import object
 from __future__ import with_statement
 DURATION = 15
 PKG = 'diagnostic_aggregator'
@@ -49,7 +51,7 @@ import threading
 def get_raw_name(agg_name):
     return agg_name.split('/')[-1]
 
-class DiagnosticItem:
+class DiagnosticItem(object):
     def __init__(self, msg):
         self.name = get_raw_name(msg.name)
         self.level = msg.level
@@ -102,8 +104,8 @@ class TestExpectedItemsStale(unittest.TestCase):
         with self._mutex:
             self.assert_(len(self._expecteds) > 0, "No expected items found in raw data!")
 
-            for name, item in self._expecteds.iteritems():
-                self.assert_(self._agg_expecteds.has_key(name), "Item %s not found in aggregated diagnostics output" % name)
+            for name, item in list(self._expecteds.items()):
+                self.assert_(name in self._agg_expecteds, "Item %s not found in aggregated diagnostics output" % name)
                 if item.is_stale():
                     self.assert_(self._agg_expecteds[name].level == 3, "Stale item in diagnostics, but aggregated didn't report as stale. Item: %s, state: %d" %(name, self._agg_expecteds[name].level))
                 else:

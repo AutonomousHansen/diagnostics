@@ -36,6 +36,8 @@
 
 ##\brief Tests that two analyzers can match and analyze a single item
 
+from __future__ import unicode_literals
+from builtins import object
 from __future__ import with_statement
 DURATION = 10
 PKG = 'diagnostic_aggregator'
@@ -56,7 +58,7 @@ def get_raw_name(agg_name):
 def get_header_name(agg_name):
     return '/'.join(agg_name.split('/')[1:-1])
 
-class DiagnosticItem:
+class DiagnosticItem(object):
     def __init__(self, msg):
         self.name = get_raw_name(msg.name)
         self.header = get_header_name(msg.name)
@@ -102,10 +104,10 @@ class TestMultipleMatch(unittest.TestCase):
         self.assert_(not rospy.is_shutdown(), "Rospy shutdown!")
 
         with self._mutex:
-            self.assert_(self._multi_items.has_key(HEADER1), "Didn't have item under %s. Items: %s" % (HEADER1, self._multi_items))
+            self.assert_(HEADER1 in self._multi_items, "Didn't have item under %s. Items: %s" % (HEADER1, self._multi_items))
             self.assert_(self._multi_items[HEADER1].name == MULTI_NAME, "Item name under %s didn't match %s" % (HEADER1, MULTI_NAME))
 
-            self.assert_(self._multi_items.has_key(HEADER2), "Didn't have item under %s" % HEADER2)
+            self.assert_(HEADER2 in self._multi_items, "Didn't have item under %s" % HEADER2)
             self.assert_(self._multi_items[HEADER2].name == MULTI_NAME, "Item name under %s didn't match %s" % (HEADER2, MULTI_NAME))
          
 

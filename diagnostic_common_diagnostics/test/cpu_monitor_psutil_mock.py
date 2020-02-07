@@ -35,11 +35,13 @@
 # \author Rein Appeldoorn
 
 
+from __future__ import unicode_literals
+from builtins import object
 import sys
 from argparse import ArgumentParser
 
 
-class PSUtilMock:
+class PSUtilMock(object):
     CPU_PERCENTAGE = 0
 
     def __init__(self):

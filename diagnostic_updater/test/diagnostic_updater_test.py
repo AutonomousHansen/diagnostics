@@ -4,7 +4,10 @@
 """
 @author Brice Rebsamen <brice [dot] rebsamen [gmail]>
 """
+from __future__ import unicode_literals
 
+from builtins import range
+from builtins import object
 import roslib
 roslib.load_manifest('diagnostic_updater')
 import rospy
@@ -26,7 +29,7 @@ class ClassFunction(DiagnosticTask):
         stat.add("Bool", True)
         return stat
 
-class TestClass:
+class TestClass(object):
     def wrapped(stat):
         return stat
 

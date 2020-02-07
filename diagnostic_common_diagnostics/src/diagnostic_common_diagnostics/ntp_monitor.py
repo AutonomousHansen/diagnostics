@@ -32,6 +32,8 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+from builtins import str
+from builtins import object
 import roslib
 roslib.load_manifest('diagnostic_common_diagnostics')
 import rospy
@@ -50,7 +52,8 @@ def ntp_diag(st, host, off, error_offset):
         p = Popen(["ntpdate", "-q", host], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         res = p.wait()
         (o,e) = p.communicate()
-    except OSError, (errno, msg):
+    except OSError as xxx_todo_changeme:
+        (errno, msg) = xxx_todo_changeme.args
         if errno == 4:
             return None #ctrl-c interrupt
         else:
@@ -83,7 +86,7 @@ def ntp_diag(st, host, off, error_offset):
     return st
 
 
-class NTPMonitor:
+class NTPMonitor(object):
     
     def __init__(self, ntp_hostname, offset=500, self_offset=500,
                  diag_hostname = None, error_offset = 5000000,
